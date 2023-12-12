@@ -1,4 +1,9 @@
 //Config
 require('dotenv').config();
-require('src/config/server')
-require('src/config/db')
+const initApp = require('./src/config/server')
+
+
+
+
+
+initApp();
