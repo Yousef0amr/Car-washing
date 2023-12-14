@@ -1,5 +1,5 @@
 
-exports.Success = (res, message = "OK", results, statusCode = 200) => {
+const Success = (res, message = "OK", results = null, statusCode = 200) => {
     return res.status(statusCode).json({
         message,
         results
@@ -7,18 +7,26 @@ exports.Success = (res, message = "OK", results, statusCode = 200) => {
 };
 
 
-exports.Error = (res, message, statusCode = 400) => {
+const Error = (res, message, statusCode = 400) => {
     return res.status(statusCode).json({
         message
     });
 };
 
 
-exports.Validation = (res, errors) => {
+const Validation = (res, errors) => {
     return res.status(422).json({
         errors
     });
 };
+
+
+
+module.exports = {
+    Success,
+    Error,
+    Validation
+}
 
 
 

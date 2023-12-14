@@ -1,16 +1,38 @@
 const mongoose = require('mongoose');
 
 const carSchema = new mongoose.Schema({
-    name: {
+    logo: {
         type: String,
         required: true
-    }
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    brand:
+    {
+        type: String,
+        required: true,
+        unique: true
+    },
+    models: [
+        {
+            type: String,
+            required: true
+        }
+    ],
+
 }, {
     timestamps: true
 })
 
-const Car = mongoose.model("", carSchema)
+carSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
 
-module.exports = {
+carSchema.set('toJSON', {
+    virtuals: true,
+});
 
-}
+
+module.exports.mongoose.model("Car", carSchema)

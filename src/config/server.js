@@ -7,7 +7,7 @@ const userRouter = require('../modules/user/user.route');
 const adminRouter = require('../modules/admin/admin.route');
 const endPoints = require('./../utils/endPoints')
 const validateQueryLn = require('./../middlewares/validateQueryLn');
-// const dashboardRouter = require('../modules/dashboard/dashboard.route');
+const dashboardRouter = require('../modules/dashboard/dashboard.route');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -23,10 +23,8 @@ app.use(morgan('dev'))
 app.use(endPoints.STUDIO, validateQueryLn(), studioRouter)
 app.use(endPoints.USER, validateQueryLn(), userRouter)
 app.use(endPoints.ADMIN, validateQueryLn(), adminRouter)
+app.use(endPoints.DASHBOARD, validateQueryLn(), dashboardRouter)
 
-
-// app.use(endPoints.USER, validateQueryLn(), dashboardRouter)
-// app.use(endPoints.STUDIO, validateQueryLn(), dashboardRouter)
 
 
 

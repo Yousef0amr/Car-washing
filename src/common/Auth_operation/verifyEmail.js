@@ -12,7 +12,7 @@ const verifyEmail = wrap(
         if (isValid) {
             return Success(res, 'Email verified successfully')
         } else {
-            return Error(res, 'OTP is Expired', 401)
+            return Error(res, 'OTP is Invalid', 400)
         }
     }
 )
