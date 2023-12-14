@@ -10,9 +10,9 @@ const validateQueryLn = require('./../middlewares/validateQueryLn');
 const dashboardRouter = require('../modules/dashboard/dashboard.route');
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const morgan = require('morgan')
 //middlewares
-
+app.use(morgan('dev'))
 app.use(express.json());
 app.use(cors())
 app.use(helmet())
@@ -21,6 +21,7 @@ app.use(helmet())
 app.use(endPoints.STUDIO, validateQueryLn(), studioRouter)
 app.use(endPoints.USER, validateQueryLn(), userRouter)
 app.use(endPoints.ADMIN, validateQueryLn(), adminRouter)
+
 
 app.use(endPoints.USER, validateQueryLn(), dashboardRouter)
 app.use(endPoints.STUDIO, validateQueryLn(), dashboardRouter)
