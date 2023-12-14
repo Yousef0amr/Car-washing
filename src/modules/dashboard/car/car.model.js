@@ -40,4 +40,4 @@ carSchema.set('toJSON', {
 });
 
 
-module.exports.mongoose.model('Car', carSchema);
+module.exports = mongoose.model('Car', carSchema);

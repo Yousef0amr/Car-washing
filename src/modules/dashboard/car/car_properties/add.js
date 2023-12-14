@@ -1,5 +1,5 @@
 const wrap = require('express-async-wrapper')
-const Car = require('./../car_properties.model')
+const Car = require('./../car.model')
 const { Success } = require('./../../../../utils/apiResponse')
 const create = require('../../../../common/DB_operation/CRUD/create')
 
