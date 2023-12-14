@@ -1,17 +1,17 @@
 const wrap = require('express-async-wrapper')
-const Service = require('./../service.model')
+const Car = require('./../car_properties.model')
 const { Success } = require('./../../../../utils/apiResponse')
 const create = require('../../../../common/DB_operation/CRUD/create')
 
-const addService = wrap(
+const addCar = wrap(
     async (req, res, next) => {
         const value = { ...req.body }
 
-        const service = create(Service, value)
+        const car = create(Car, value)
 
-        Success(res, { service })
+        Success(res, { car })
     }
 )
 
 
-module.exports = addService
+module.exports = addCar

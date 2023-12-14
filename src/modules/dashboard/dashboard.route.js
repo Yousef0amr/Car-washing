@@ -1,10 +1,10 @@
 const express = require('express')
-const carPropertiesRouter = require('./car_properties/car_properties.route')
+const carRouter = require('./car/car.route')
 const serviceRouter = require('./service/service.route')
 const dashboardRouter = express.Router()
 
 
-dashboardRouter.use('/car-properties', carPropertiesRouter)
+dashboardRouter.use('/car', carRouter)
 dashboardRouter.use('/service', serviceRouter)
 
 

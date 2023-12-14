@@ -1,5 +1,5 @@
 
-const Success = (res, message = "OK", results = null, statusCode = 200) => {
+const Success = (res, message = "OK", results, statusCode = 200) => {
     return res.status(statusCode).json({
         message,
         results
