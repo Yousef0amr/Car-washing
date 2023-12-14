@@ -23,8 +23,8 @@ app.use(endPoints.USER, validateQueryLn(), userRouter)
 app.use(endPoints.ADMIN, validateQueryLn(), adminRouter)
 
 
-app.use(endPoints.USER, validateQueryLn(), dashboardRouter)
-app.use(endPoints.STUDIO, validateQueryLn(), dashboardRouter)
+// app.use(endPoints.USER, validateQueryLn(), dashboardRouter)
+// app.use(endPoints.STUDIO, validateQueryLn(), dashboardRouter)
 
 
 
