@@ -13,6 +13,7 @@ const { multerConfig } = require('./../../utils/multer');
 const restPassword = require('./controllers/auth/restPassword');
 const resendCode = require('../../common/Auth_operation/resendCode');
 const restPasswordSchema = require('../../common/validationsModel/restPassword');
+const getUser = require('./controllers/get_user');
 const userRouter = express.Router();
 
 
@@ -40,6 +41,10 @@ userRouter.route('/rest-password')
 
 userRouter.route('/resend-code')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), resendCode);
+
+
+userRouter.route('/getUser')
+    .post(multerConfig().array(), getUser);
 
 
 

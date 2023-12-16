@@ -6,7 +6,7 @@ const getAll = require('../../../../common/DB_operation/CRUD/getAll')
 const getAllService = wrap(
     async (req, res, next) => {
         const services = await getAll(Service)
-        Success(res, { services })
+        return Success(res, { services })
     }
 )
 

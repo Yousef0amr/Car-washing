@@ -1,6 +1,6 @@
 const wrap = require('express-async-wrapper')
-const Service = require('./../service.model')
-const { Success } = require('./../../../../utils/apiResponse')
+const Service = require('../service.model')
+const { Success } = require('../../../../utils/apiResponse')
 const create = require('../../../../common/DB_operation/CRUD/create')
 
 const addService = wrap(
@@ -9,7 +9,7 @@ const addService = wrap(
 
         const service = create(Service, value)
 
-        Success(res, { service })
+        return Success(res, { service })
     }
 )
 

@@ -1,6 +1,6 @@
 const wrap = require('express-async-wrapper')
-const Service = require('./../service.model')
-const { Success } = require('./../../../../utils/apiResponse')
+const Service = require('../service.model')
+const { Success } = require('../../../../utils/apiResponse')
 const updateByID = require('../../../../common/DB_operation/CRUD/updateByID')
 
 const updateService = wrap(
@@ -9,7 +9,7 @@ const updateService = wrap(
         const value = { ...req.body }
         const service = await updateByID(Service, id, value);
 
-        Success(res, "service updated successfully", service)
+        return Success(res, "service updated successfully", service)
     }
 )
 

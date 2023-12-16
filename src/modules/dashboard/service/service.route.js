@@ -1,27 +1,19 @@
 const express = require('express');
-const addService = require('./controllers/add');
-const getAllService = require('./controllers/getAll');
-const updateService = require('./controllers/update');
-const deleteService = require('./controllers/delete');
+const addService = require('./controllers/add_service');
+const getAllService = require('./controllers/getAllServices');
+const updateService = require('./controllers/update_service');
+const deleteService = require('./controllers/delete_service');
 
 
 const serviceRouter = express.Router();
 
-serviceRouter.route("/add-service")
+serviceRouter.route("/")
     .post(addService)
-
-serviceRouter.route("/get-all-services")
     .get(getAllService)
 
-serviceRouter.route("/update-service/:id")
+serviceRouter.route("/:id")
     .put(updateService)
-
-serviceRouter.route("/delete-service/:id")
     .delete(deleteService)
-
-
-
-
 
 
 module.exports = serviceRouter
