@@ -43,8 +43,7 @@ userRouter.route('/resend-code')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), resendCode);
 
 
-userRouter.route('/getUser')
-    .post(multerConfig().array(), getUser);
+
 
 
 
