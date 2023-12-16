@@ -6,7 +6,7 @@ const USER = `${VERSION}/users`
 const ADMIN = `${VERSION}/admin`
 
 
-const DASHBOARD = ADMIN || USER || STUDIO
+let DASHBOARD = ADMIN || USER || STUDIO
 
 
 
