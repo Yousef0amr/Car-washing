@@ -19,7 +19,7 @@ const validatorRegister = () => {
 
         if (error) {
             const errorResponse = handleFieldErrors(error, errorValidationMessages?.[req.ln]);
-            Validation(res, errorResponse)
+            return Validation(res, errorResponse)
         }
 
         next()

@@ -1,5 +1,5 @@
 const wrap = require('express-async-wrapper')
-const { Success, Error, Validation } = require('../../utils/apiResponse')
+const { Success, Error } = require('../../utils/apiResponse')
 const { verifyOTP } = require('../../utils/otpService')
 
 

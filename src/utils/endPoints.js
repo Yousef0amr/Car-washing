@@ -6,14 +6,10 @@ const USER = `${VERSION}/users`
 const ADMIN = `${VERSION}/admin`
 
 
-let DASHBOARD = ADMIN || USER || STUDIO
-
 
 
 module.exports = {
     STUDIO,
     USER,
-    ADMIN,
-    DASHBOARD
-
+    ADMIN
 }

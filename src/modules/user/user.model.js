@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const CryptoJS = require("crypto-js");
-
+const setting = require('./../../config/schemaConfig')
 const userSchema = new mongoose.Schema({
     logo: {
         type: String
@@ -67,18 +67,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-},
-    {
-        timestamps: true,
-    });
+}, setting);
 
-userSchema.virtual('id').get(function () {
-    return this._id.toHexString();
-});
 
-userSchema.set('toJSON', {
-    virtuals: true,
-});
 
 
 // userSchema.post('find', (data, next) => {

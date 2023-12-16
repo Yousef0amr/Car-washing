@@ -5,6 +5,7 @@ const errorValidationMessages = require('./../../../../utils/errorValidationMess
 const fileSchema = require('./../../../../common/validationsModel/file-schema')
 const validatorCar = () => {
     return (req, res, next) => {
+        console.log(req.body)
         const data = { ...req.body, ...req.files }
 
         const schema = Joi.object({
@@ -26,7 +27,7 @@ const validatorCar = () => {
 
         if (error) {
             const errorResponse = handleFieldErrors(error, errorValidationMessages?.[req.ln]);
-            Validation(res, errorResponse)
+            return Validation(res, errorResponse)
         }
 
         next()

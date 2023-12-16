@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const CryptoJS = require("crypto-js");
-
+const setting = require('./../../config/schemaConfig')
 
 const adminSchema = new mongoose.Schema({
     logo: {
@@ -39,18 +39,9 @@ const adminSchema = new mongoose.Schema({
         default: false
     }
 },
-    {
-        timestamps: true,
-    }
+    setting
 );
 
-adminSchema.virtual('id').get(function () {
-    return this._id.toHexString();
-});
-
-adminSchema.set('toJSON', {
-    virtuals: true,
-});
 
 
 // adminSchema.post('find', (data, next) => {

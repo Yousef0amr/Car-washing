@@ -10,10 +10,10 @@ const carRouter = express.Router();
 
 carRouter.route('/')
     .post(
-        validateCar(),
         multerConfig().fields([
             { name: 'logo', maxCount: 1 }
         ]),
+        validateCar(),
         addCar
     )
     .get(getAllCars)

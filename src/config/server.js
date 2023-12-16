@@ -22,8 +22,10 @@ app.use(morgan('dev'))
 
 app.use(endPoints.STUDIO, validateQueryLn(), studioRouter)
 app.use(endPoints.USER, validateQueryLn(), userRouter)
+
+
 app.use(endPoints.ADMIN, validateQueryLn(), adminRouter)
-app.use(endPoints.DASHBOARD, validateQueryLn(), dashboardRouter)
+app.use(endPoints.ADMIN, validateQueryLn(), dashboardRouter)
 
 
 

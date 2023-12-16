@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const setting = require('../../../config/schemaConfig')
+
 
 const modelSchema = new mongoose.Schema({
     name: {
@@ -15,7 +17,10 @@ const brandSchema = new mongoose.Schema({
         required: true
     },
     models: [modelSchema]
-});
+},
+    {
+        _id: false
+    });
 
 const carSchema = new mongoose.Schema({
     logo: {
@@ -25,19 +30,10 @@ const carSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
+        unique: true
     },
     brands: [brandSchema]
-}, {
-    timestamps: true
-});
-
-carSchema.virtual('id').get(function () {
-    return this._id.toHexString();
-});
-
-carSchema.set('toJSON', {
-    virtuals: true,
-});
+}, setting);
 
 
 module.exports = mongoose.model('Car', carSchema);
