@@ -34,11 +34,11 @@ const register = wrap(
                 resource_type: "auto"
             });
 
-            return `${image.version}/${image.public_id}`;
+            return `${image.public_id}`;
         }));
 
 
-        value.logo = `${logo.version}/${logo.public_id}`
+        value.logo = `${logo.public_id}`
         value.studio_images = images
         value.password = await hashPassword(value.password)
         value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()

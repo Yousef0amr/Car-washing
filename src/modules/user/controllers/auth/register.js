@@ -25,7 +25,7 @@ const register = wrap(
             unique_filename: true,
             resource_type: "auto"
         })
-        const images = await Promise.all(files.studio_images.map(async file => {
+        const images = await Promise.all(files.car_images.map(async file => {
             const image = await cloudinary.uploader.upload(file.path, {
                 folder: `carWashing/user/car_images`,
                 public_id: uuidv4(),
@@ -34,11 +34,11 @@ const register = wrap(
                 resource_type: "auto"
             });
 
-            return `${image.version}/${image.public_id}`;
+            return `${image.public_id}`;
         }));
 
 
-        value.logo = `${logo.version}/${logo.public_id}`
+        value.logo = `${logo.public_id}`
         value.car_images = images
         value.password = await hashPassword(value.password)
         value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()
