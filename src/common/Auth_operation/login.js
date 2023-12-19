@@ -19,10 +19,10 @@ const login = (Model) => wrap(
         user.isLoggedIn = true;
         await user.save()
 
-        const payload = { id: user._id, role: user.role };
+        const payload = { id: user.id, role: user.role };
         const token = await generateToken(payload, process.env.ACCESS_TOKEN_SECRET);
 
-        return Success(res, { token });
+        return Success(res, "OK", { token });
     }
 )
 

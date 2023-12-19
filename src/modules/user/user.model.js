@@ -55,6 +55,12 @@ const userSchema = new mongoose.Schema({
             default: ""
         }
     ],
+    favorites: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Studio"
+        }
+    ],
     role: {
         type: String,
         default: "user"

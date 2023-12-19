@@ -48,7 +48,7 @@ const register = wrap(
         });
         await studio.save();
 
-        const payload = { id: studio._id, role: studio.role };
+        const payload = { id: studio.id, role: studio.role };
         const token = await generateToken(payload, process.env.ACCESS_TOKEN_SECRET);
 
         return Success(res, "OK", { token }, 201);

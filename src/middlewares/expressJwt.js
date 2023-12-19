@@ -1,29 +1,56 @@
 const { expressjwt } = require('express-jwt');
-const verifyUser = require('./verifyUser')
-const secret = process.env.SECRET
+const secret = process.env.ACCESS_TOKEN_SECRET
+const endpoints = require('./../utils/endPoints')
+
+
+const checkUrl = (req, allowedRoutes) => {
+    const matches = allowedRoutes.some(route =>
+        req.method === route.method &&
+        req.originalUrl.includes(route.url)
+    );
+    return !matches;
+};
+
+
 
 const isRevoked = (req, token) => {
+    const role = token.payload.role;
+    let isAllowed = false
 
-    if (verifyUser(token.payload.id)) {
-        req.userId = token.payload.id
-        if (token.payload.isAdmin) {
-            return false;
-        } else {
-            if (
-                (req.method === 'GET' && req.originalUrl.includes('/api/v1/posts')) ||
-                (req.method === 'POST' && req.originalUrl === '/api/v1/posts') ||
-                (req.method === 'PATCH' && req.originalUrl.includes('/api/v1/posts')) ||
-                (req.method === 'DELETE' && req.originalUrl.includes('/api/v1/posts'))
-            ) {
-                return false;
+    switch (role) {
+        case 'user':
+            isAllowed = checkUrl(req, [
+                { method: 'GET', url: '/api/v1/posts' },
+                { method: 'POST', url: '/api/v1/posts' },
+                { method: 'PATCH', url: '/api/v1/posts' },
+                { method: 'DELETE', url: '/api/v1/posts' },
+            ]);
+            if (isAllowed) {
+
             }
-        }
-        // Deny access to all other routes
-        return true;
+            return true
+        case 'studio':
+            isAllowed = checkUrl(req, [
+                { method: 'GET', url: '/api/v1/posts' },
+                { method: 'POST', url: '/api/v1/posts' },
+                { method: 'PATCH', url: '/api/v1/posts' },
+                { method: 'DELETE', url: '/api/v1/posts' },
+            ]);
+            if (isAllowed) {
+
+            }
+            return true
+        case 'admin':
+
+            return false;
+        default:
+            return true;
     }
-}
+};
 
-
+const authOperationsRegex = (user) => new RegExp(`^${user}
+    /(?:register|login|verify-email|forget-password|reset-password|resend-code|check-email)$`
+    , 'i');
 
 const authJwt = expressjwt({
     secret,
@@ -32,8 +59,8 @@ const authJwt = expressjwt({
 }).unless(
     {
         path: [
-            { url: "/api/v1/auth/register", method: ["POST", 'OPTIONS'] },
-            { url: "/api/v1/auth/login", method: ["POST", 'OPTIONS'] },
+            { url: authOperationsRegex(endpoints.USER), method: ["POST", 'OPTIONS'] },
+            { url: authOperationsRegex(endpoints.STUDIO), method: ["POST", 'OPTIONS'] },
         ]
     }
 )

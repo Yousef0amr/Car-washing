@@ -43,8 +43,8 @@ const studioSchema = new mongoose.Schema({
         required: true,
     },
     services: [{
-        type: String,
-        trim: true
+        type: String
+
     }],
     studio_images: [
         {

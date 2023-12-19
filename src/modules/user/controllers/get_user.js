@@ -7,7 +7,7 @@ const wrap = require('express-async-wrapper')
 
 const getUser = wrap(
     async (req, res, next) => {
-        const id = req.query.id;
+
 
 
     }
