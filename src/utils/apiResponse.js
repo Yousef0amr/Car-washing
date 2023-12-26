@@ -7,11 +7,14 @@ const Success = (res, message = "OK", results, statusCode = 200) => {
 };
 
 
-const Error = (res, message, statusCode = 400) => {
-    return res.status(statusCode).json({
-        message
-    });
-};
+class ApiError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = statusCode;
+        this.status = `${statusCode}`.startsWith(4) ? 'fail' : 'error';
+        this.isOperational = true;
+    }
+}
 
 
 const Validation = (res, errors) => {
@@ -24,7 +27,7 @@ const Validation = (res, errors) => {
 
 module.exports = {
     Success,
-    Error,
+    ApiError,
     Validation
 }
 

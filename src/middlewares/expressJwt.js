@@ -20,7 +20,7 @@ const isRevoked = (req, token) => {
     switch (role) {
         case 'user':
             isAllowed = checkUrl(req, [
-                { method: 'GET', url: '/api/v1/posts' },
+                { method: 'GET', url: `${endpoints.USER}/get-user` },
                 { method: 'POST', url: '/api/v1/posts' },
                 { method: 'PATCH', url: '/api/v1/posts' },
                 { method: 'DELETE', url: '/api/v1/posts' },
@@ -31,7 +31,7 @@ const isRevoked = (req, token) => {
             return true
         case 'studio':
             isAllowed = checkUrl(req, [
-                { method: 'GET', url: '/api/v1/posts' },
+                { method: 'GET', url: `${endpoints.STUDIO}/get-user` },
                 { method: 'POST', url: '/api/v1/posts' },
                 { method: 'PATCH', url: '/api/v1/posts' },
                 { method: 'DELETE', url: '/api/v1/posts' },

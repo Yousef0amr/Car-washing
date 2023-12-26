@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const setting = require('./../../../config/schemaConfig')
+const setting = require('./../../config/schemaConfig')
 const serviceSchema = new mongoose.Schema({
     type: {
         type: String,
@@ -7,8 +7,6 @@ const serviceSchema = new mongoose.Schema({
         unique: true
     }
 }, setting)
-
-
 
 
 module.exports = mongoose.model("Service", serviceSchema)

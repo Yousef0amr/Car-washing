@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const setting = require('../../../config/schemaConfig')
+const setting = require('../../config/schemaConfig')
 
 
 const modelSchema = new mongoose.Schema({

@@ -4,12 +4,17 @@ const VERSION = "/api/v1";
 const STUDIO = `${VERSION}/studios`
 const USER = `${VERSION}/users`
 const ADMIN = `${VERSION}/admin`
-
+const CAR = `${VERSION}/cars`
+const SERVICE = `${VERSION}/services`
+const ORDER = `${VERSION}/orders`
 
 
 
 module.exports = {
     STUDIO,
     USER,
-    ADMIN
+    ADMIN,
+    SERVICE,
+    CAR,
+    ORDER
 }

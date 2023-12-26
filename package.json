@@ -4,8 +4,8 @@
   "description": "car washing studio app backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon index.js",
+    "start:prod": "NODE_ENV=production node server.js"
   },
   "keywords": [],
   "author": "",

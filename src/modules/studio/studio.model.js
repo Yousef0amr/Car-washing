@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const CryptoJS = require("crypto-js");
-const setting = require('./../../config/schemaConfig')
+const setting = require('./../../config/schemaConfig');
+
 const studioSchema = new mongoose.Schema({
     logo: {
         type: String
@@ -43,8 +44,8 @@ const studioSchema = new mongoose.Schema({
         required: true,
     },
     services: [{
-        type: String
-
+        type: mongoose.Types.ObjectId,
+        ref: "Service"
     }],
     studio_images: [
         {
@@ -52,6 +53,14 @@ const studioSchema = new mongoose.Schema({
             default: ""
         }
     ],
+    ratingsAvg: {
+        type: Number,
+        default: 0
+    },
+    ratingsQuentity: {
+        type: Number,
+        default: 0
+    },
     role: {
         type: String,
         default: "studio"

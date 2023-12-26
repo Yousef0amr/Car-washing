@@ -13,9 +13,10 @@ const { multerConfig } = require('./../../utils/multer');
 const restPassword = require('./controllers/auth/restPassword');
 const resendCode = require('../../common/Auth_operation/resendCode');
 const restPasswordSchema = require('../../common/validationsModel/restPassword');
+const getPopularStudios = require('./controllers/getPopularStudios');
+const getAllStudios = require('./controllers/getAllStudios');
+
 const studioRouter = express.Router();
-
-
 
 studioRouter.route('/register')
     .post(multerConfig().fields([
@@ -42,5 +43,10 @@ studioRouter.route('/resend-code')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), resendCode);
 
 
+studioRouter.route('/')
+    .get(getAllStudios)
+
+studioRouter.route('/popular-studios/:serviceId')
+    .get(getPopularStudios)
 
 module.exports = studioRouter;

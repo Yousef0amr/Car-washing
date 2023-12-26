@@ -1,8 +1,8 @@
 const wrap = require('express-async-wrapper')
 const Car = require('./../../car.model')
-const { Success } = require('./../../../../../utils/apiResponse')
-const create = require('./../../../../../common/DB_operation/CRUD/create')
-const cloudinary = require('./../../../../../config/cloudinary')
+const { Success } = require('./../../../../utils/apiResponse')
+const create = require('./../../../../common/DB_operation/CRUD/create')
+const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const addCar = wrap(
     async (req, res, next) => {

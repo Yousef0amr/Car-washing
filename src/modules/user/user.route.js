@@ -14,7 +14,11 @@ const restPassword = require('./controllers/auth/restPassword');
 const resendCode = require('../../common/Auth_operation/resendCode');
 const restPasswordSchema = require('../../common/validationsModel/restPassword');
 const getUser = require('./controllers/get_user');
-const userRouter = express.Router();
+const carRouter = require('../car/car.route');
+const serviceRouter = require('../service/service.route');
+const userRouter = express.Router({ mergeParams: true });
+
+
 
 
 
@@ -41,10 +45,6 @@ userRouter.route('/rest-password')
 
 userRouter.route('/resend-code')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), resendCode);
-
-
-
-
 
 
 module.exports = userRouter;

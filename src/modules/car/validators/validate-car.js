@@ -1,8 +1,8 @@
 const Joi = require("joi");
-const handleFieldErrors = require('./../../../../utils/handleFileErrors');
-const { Validation } = require("./../../../../utils/apiResponse");
-const errorValidationMessages = require('./../../../../utils/errorValidationMessages')
-const fileSchema = require('./../../../../common/validationsModel/file-schema')
+const handleFieldErrors = require('./../../../utils/handleFileErrors');
+const { Validation } = require("./../../../utils/apiResponse");
+const errorValidationMessages = require('./../../../utils/errorValidationMessages')
+const fileSchema = require('./../../../common/validationsModel/file-schema')
 const validatorCar = () => {
     return (req, res, next) => {
         console.log(req.body)

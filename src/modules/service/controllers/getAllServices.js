@@ -1,7 +1,7 @@
 const wrap = require('express-async-wrapper')
 const Service = require('../service.model')
-const { Success } = require('../../../../utils/apiResponse')
-const getAll = require('../../../../common/DB_operation/CRUD/getAll')
+const { Success } = require('../../../utils/apiResponse')
+const getAll = require('../../../common/DB_operation/CRUD/getAll')
 
 const getAllService = wrap(
     async (req, res, next) => {
