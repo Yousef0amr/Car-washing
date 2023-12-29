@@ -14,13 +14,13 @@ const modelSchema = new mongoose.Schema({
 const brandSchema = new mongoose.Schema({
     brandName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     models: [modelSchema]
-},
-    {
-        _id: false
-    });
+}, {
+    _id: false
+});
 
 const carSchema = new mongoose.Schema({
     logo: {
@@ -34,6 +34,7 @@ const carSchema = new mongoose.Schema({
     },
     brands: [brandSchema]
 }, setting);
+
 
 
 module.exports = mongoose.model('Car', carSchema);

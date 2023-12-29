@@ -15,7 +15,7 @@ const getPopularStudios = wrap(
             services: serviceId,
             ratingsAvg: { $gte: 4.0 }
         }).sort({ ratingsAvg: -1 }).limit(limit);
-        Success(res, "Ok", { popularStudios })
+        return Success(res, "Ok", { popularStudios })
     }
 )
 

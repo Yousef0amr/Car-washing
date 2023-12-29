@@ -5,7 +5,7 @@ const updateByID = require('../../../common/DB_operation/CRUD/updateByID')
 
 const updateService = wrap(
     async (req, res, next) => {
-        const id = req.query.id
+        const id = req.params.id
         const value = { ...req.body }
         const service = await updateByID(Service, id, value);
 

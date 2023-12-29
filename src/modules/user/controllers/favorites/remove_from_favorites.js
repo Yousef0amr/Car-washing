@@ -1,20 +1,20 @@
 const wrap = require('express-async-wrapper')
 const User = require('./../../user.model')
-const { Error, Success } = require('./../../../../utils/apiResponse')
+const { ApiError, Success } = require('./../../../../utils/apiResponse')
 const removeFromFavorites = wrap(
     async (req, res, next) => {
         const id = req.query.id;
 
-        const user = await userModel.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
             req.userId,
             { $pull: { favorites: id } },
             { new: true }
         );
 
         if (!user) {
-            return Error(res, "Studio not found in favorites")
+            return next(new ApiError("Studio not found in favorites", 404))
         }
-        Success(res, "Removed from favorites successfully", null)
+        return Success(res, "Removed from favorites successfully", null)
     }
 )
 

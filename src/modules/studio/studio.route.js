@@ -15,6 +15,7 @@ const resendCode = require('../../common/Auth_operation/resendCode');
 const restPasswordSchema = require('../../common/validationsModel/restPassword');
 const getPopularStudios = require('./controllers/getPopularStudios');
 const getAllStudios = require('./controllers/getAllStudios');
+const getStudio = require('./controllers/get_studio');
 
 const studioRouter = express.Router();
 
@@ -46,7 +47,19 @@ studioRouter.route('/resend-code')
 studioRouter.route('/')
     .get(getAllStudios)
 
-studioRouter.route('/popular-studios/:serviceId')
+studioRouter.route('/current-studio')
+    // .patch( updateStudio)
+    .get(getStudio)
+
+studioRouter.route('/popular-studios/:id')
     .get(getPopularStudios)
+
+
+
+
+studioRouter.route('/:id')
+    .get(getStudio)
+// .delete(deleteStudio)
+
 
 module.exports = studioRouter;

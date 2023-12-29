@@ -1,5 +1,5 @@
 const wrap = require('express-async-wrapper')
-const { Success, Error } = require('./../../../../utils/apiResponse')
+const { Success, ApiError } = require('./../../../../utils/apiResponse')
 const Studio = require('./../../studio.model')
 const hashPassword = require("./../../../../utils/hashPassword")
 const generateToken = require('./../../../../utils/generateToken')
@@ -15,7 +15,7 @@ const register = wrap(
 
         const isStudioExist = await checkEmailDB(Studio, value.email)
         if (isStudioExist) {
-            return Error(res, "Email is already registered");
+            return next(new ApiError("Email is already registered", 400));
         }
 
         const logo = await cloudinary.uploader.upload(files.logo[0].path, {

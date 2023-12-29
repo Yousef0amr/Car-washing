@@ -1,6 +1,10 @@
 const { expressjwt } = require('express-jwt');
 const secret = process.env.ACCESS_TOKEN_SECRET
 const endpoints = require('./../utils/endPoints')
+const User = require('./../modules/user/user.model')
+const Studio = require('./../modules/studio/studio.model')
+const checkUser = require('./../common/DB_operation/checkUserDB')
+const wrap = require('express-async-wrapper')
 
 
 const checkUrl = (req, allowedRoutes) => {
@@ -8,62 +12,82 @@ const checkUrl = (req, allowedRoutes) => {
         req.method === route.method &&
         req.originalUrl.includes(route.url)
     );
-    return !matches;
+    return matches;
 };
 
+const userAllowedUrls = [
+    { method: 'GET', url: `${endpoints.USER}/current-user` },
+    { method: 'PATCH', url: `${endpoints.USER}/current-user` },
+    { method: 'POST', url: `${endpoints.USER}/favorites` },
+    { method: 'DELETE', url: `${endpoints.USER}/favorites` },
+    { method: 'GET', url: `${endpoints.STUDIO}/popular-studios/:id` },
+]
 
+const studioAllowedUrls = [
+    { method: 'GET', url: `${endpoints.STUDIO}/current-studio` },
+    { method: 'PATCH', url: `${endpoints.STUDIO}/current-studio` },
+]
 
-const isRevoked = (req, token) => {
+const isRevoked = wrap(async (req, token) => {
     const role = token.payload.role;
+    const id = token.payload.role;
     let isAllowed = false
-
     switch (role) {
         case 'user':
-            isAllowed = checkUrl(req, [
-                { method: 'GET', url: `${endpoints.USER}/get-user` },
-                { method: 'POST', url: '/api/v1/posts' },
-                { method: 'PATCH', url: '/api/v1/posts' },
-                { method: 'DELETE', url: '/api/v1/posts' },
-            ]);
+            isAllowed = checkUrl(req, userAllowedUrls);
             if (isAllowed) {
-
+                const user = await checkUser(User, id)
+                if (user) {
+                    return false
+                }
+                return true
             }
             return true
         case 'studio':
-            isAllowed = checkUrl(req, [
-                { method: 'GET', url: `${endpoints.STUDIO}/get-user` },
-                { method: 'POST', url: '/api/v1/posts' },
-                { method: 'PATCH', url: '/api/v1/posts' },
-                { method: 'DELETE', url: '/api/v1/posts' },
-            ]);
+            isAllowed = checkUrl(req, studioAllowedUrls);
             if (isAllowed) {
-
+                const studio = await checkUser(Studio, id)
+                if (studio) {
+                    return false
+                }
+                return true
             }
             return true
         case 'admin':
-
             return false;
         default:
             return true;
     }
+})
+
+const authRegxOperations = (user) => {
+    const allowedUrls = [
+        { url: `${user}/login`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/register`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/check-email`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/resend-code`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/forget-password`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/verify-email`, method: ["POST", "OPTIONS"] },
+        { url: `${user}/reset-password`, method: ["POST", "OPTIONS"] },
+    ];
+
+    return allowedUrls;
 };
 
-const authOperationsRegex = (user) => new RegExp(`^${user}
-    /(?:register|login|verify-email|forget-password|reset-password|resend-code|check-email)$`
-    , 'i');
-
-const authJwt = expressjwt({
+const authJwt = wrap(expressjwt({
     secret,
     algorithms: ['HS256'],
     isRevoked: isRevoked
 }).unless(
     {
         path: [
-            { url: authOperationsRegex(endpoints.USER), method: ["POST", 'OPTIONS'] },
-            { url: authOperationsRegex(endpoints.STUDIO), method: ["POST", 'OPTIONS'] },
+            ...authRegxOperations(endpoints.USER),
+            ...authRegxOperations(endpoints.STUDIO),
+            { url: `${endpoints.CAR}`, method: ["GET", 'OPTIONS'] },
+            { url: `${endpoints.SERVICE}`, method: ["GET", 'OPTIONS'] },
         ]
     }
-)
+))
 
 
 module.exports = authJwt

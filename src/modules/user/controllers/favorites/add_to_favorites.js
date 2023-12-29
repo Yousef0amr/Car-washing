@@ -1,5 +1,6 @@
 const wrap = require('express-async-wrapper')
-const User = require('./../../user.model')
+const User = require('./../../user.model');
+const { ApiError, Success } = require('../../../../utils/apiResponse');
 
 const addToFavorites = wrap(
     async (req, res, next) => {
@@ -11,7 +12,7 @@ const addToFavorites = wrap(
         );
 
         if (!user) {
-            return Error(res, "Studio already in favorites")
+            return next(new ApiError("Studio already in favorites", 400))
         }
         Success(res, "Added to favorites successfully", { favorites: user.favorites })
     }

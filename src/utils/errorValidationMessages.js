@@ -20,6 +20,9 @@ const en = [
     { fieldName: 'vehicleType', errorMessage: 'Vehicle type is required' },
     { fieldName: 'brand', errorMessage: 'Brand is required' },
     { fieldName: 'model', errorMessage: 'Model is required' },
+    { fieldName: 'type', errorMessage: 'Type is required' },
+    { fieldName: 'brandName', errorMessage: 'BrandName is required' },
+    { fieldName: 'modelName', errorMessage: 'ModelName is required' },
 ];
 
 const ar = [
@@ -44,6 +47,10 @@ const ar = [
     { fieldName: 'vehicleType', errorMessage: 'نوع السيارة مطلوب' },
     { fieldName: 'brand', errorMessage: 'الماركة مطلوبة' },
     { fieldName: 'model', errorMessage: 'الموديل مطلوب' },
+    { fieldName: 'type', errorMessage: 'النوع مطلوب' },
+    { fieldName: 'brandName', errorMessage: 'اسم الماركة مطلوب' },
+    { fieldName: 'modelName', errorMessage: 'اسم الموديل مطلوب' },
+
 ];
 
 module.exports = {

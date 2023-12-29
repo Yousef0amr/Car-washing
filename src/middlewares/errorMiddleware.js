@@ -1,5 +1,5 @@
 const globelError = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
+    err.statusCode = err.statusCode || err.status || 500;
     err.status = err.status || 'error';
     if (process.env.NODE_ENV === "development") {
         sendErrorForDev(err, res)

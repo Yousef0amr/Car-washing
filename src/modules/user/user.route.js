@@ -14,10 +14,9 @@ const restPassword = require('./controllers/auth/restPassword');
 const resendCode = require('../../common/Auth_operation/resendCode');
 const restPasswordSchema = require('../../common/validationsModel/restPassword');
 const getUser = require('./controllers/get_user');
-const carRouter = require('../car/car.route');
-const serviceRouter = require('../service/service.route');
 const userRouter = express.Router({ mergeParams: true });
-
+const addToFavorites = require('./controllers/favorites/add_to_favorites')
+const removeFromFavorites = require('./controllers/favorites/remove_from_favorites')
 
 
 
@@ -45,6 +44,24 @@ userRouter.route('/rest-password')
 
 userRouter.route('/resend-code')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), resendCode);
+
+
+
+
+userRouter.route('/')
+// .get(getAllUsers)
+
+userRouter.route('/current-user')
+    // .patch( updateUser)
+    .get(getUser)
+
+userRouter.route('/:id')
+    .get(getUser)
+// .delete(deleteUser)
+
+userRouter.route('/favorites')
+    .post(addToFavorites)
+    .delete(removeFromFavorites)
 
 
 module.exports = userRouter;
