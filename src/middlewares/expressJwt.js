@@ -31,6 +31,7 @@ const studioAllowedUrls = [
 const isRevoked = wrap(async (req, token) => {
     const role = token.payload.role;
     const id = token.payload.role;
+    req.userId = id
     let isAllowed = false
     switch (role) {
         case 'user':
