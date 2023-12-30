@@ -1,5 +1,5 @@
 const checkUserDB = async (Model, id) => {
-    return await Model.findById(id)
+    return Model.findById(id)
 }
 
 module.exports = checkUserDB
