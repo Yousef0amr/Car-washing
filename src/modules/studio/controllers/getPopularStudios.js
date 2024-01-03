@@ -14,7 +14,6 @@ const getPopularStudios = wrap(
             {
                 $group: {
                     _id: '$services',
-                    count: { $sum: 1 },
                     studios: {
                         $push: {
                             id: '$_id',
@@ -23,10 +22,10 @@ const getPopularStudios = wrap(
                             description: '$description',
                             logo: '$logo',
                             ratingsAvg: '$ratingsAvg',
-                            services: '$services',
-                            openTime: "$openTime",
-                            closeTime: "$closeTime",
-                            studio_images: "$studio_images"
+                            openTime: '$openTime',
+                            closeTime: '$closeTime',
+                            studio_images: '$studio_images',
+                            services: '$services' // Append the services array
                         }
                     }
                 }
@@ -40,6 +39,29 @@ const getPopularStudios = wrap(
                     localField: '_id',
                     foreignField: '_id',
                     as: 'serviceDetails'
+                }
+            },
+            {
+                $unwind: '$serviceDetails'
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    count: { $sum: 1 },
+                    studios: {
+                        $push: {
+                            id: { $arrayElemAt: ['$studios.id', 0] },
+                            name: { $arrayElemAt: ['$studios.name', 0] },
+                            location: { $arrayElemAt: ['$studios.location', 0] },
+                            description: { $arrayElemAt: ['$studios.description', 0] },
+                            logo: { $arrayElemAt: ['$studios.logo', 0] },
+                            ratingsAvg: { $arrayElemAt: ['$studios.ratingsAvg', 0] },
+                            openTime: { $arrayElemAt: ['$studios.openTime', 0] },
+                            closeTime: { $arrayElemAt: ['$studios.closeTime', 0] },
+                            studio_images: { $arrayElemAt: ['$studios.studio_images', 0] },
+                            services: '$serviceDetails'
+                        }
+                    }
                 }
             },
             {
