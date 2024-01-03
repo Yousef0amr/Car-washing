@@ -23,6 +23,7 @@ const getPopularStudios = wrap(
                             description: '$description',
                             logo: '$logo',
                             ratingsAvg: '$ratingsAvg',
+                            services: '$services',
                             openTime: "$openTime",
                             closeTime: "$closeTime",
                             studio_images: "$studio_images"
