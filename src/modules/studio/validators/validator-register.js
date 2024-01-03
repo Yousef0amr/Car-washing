@@ -7,6 +7,7 @@ const validatorRegister = () => {
     return (req, res, next) => {
         const data = { ...req.body, ...req.files }
         data.services = JSON.parse(data.services)
+        console.log(data)
         const schema = Joi.object({
             logo: fileSchema.max(1).required(),
             name: Joi.string().min(3).required(),
