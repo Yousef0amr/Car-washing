@@ -17,7 +17,7 @@ const validatorRegister = () => {
             description: Joi.string().required(),
             openTime: Joi.string().required(),
             closeTime: Joi.string().required(),
-            services: Joi.array().any().required(),
+            services: Joi.array().required(),
             studio_images: fileSchema.required()
         });
 
