@@ -17,12 +17,12 @@ const getPopularStudios = wrap(
                     count: { $sum: 1 },
                     studios: {
                         $push: {
-                            studioId: '$_id',
-                            studioName: '$name',
+                            id: '$_id',
+                            name: '$name',
                             location: '$location',
                             description: '$description',
                             logo: '$logo',
-                            rating: '$ratingsAvg',
+                            ratingsAvg: '$ratingsAvg',
                             openTime: "$openTime",
                             closeTime: "$closeTime",
                             studio_images: "$studio_images"
