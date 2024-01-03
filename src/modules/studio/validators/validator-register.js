@@ -6,7 +6,7 @@ const fileSchema = require('./../../../common/validationsModel/file-schema')
 const validatorRegister = () => {
     return (req, res, next) => {
         const data = { ...req.body, ...req.files }
-        console.log(data)
+        data.services = JSON.parse(data.services)
         const schema = Joi.object({
             logo: fileSchema.max(1).required(),
             name: Joi.string().min(3).required(),
@@ -17,7 +17,7 @@ const validatorRegister = () => {
             description: Joi.string().required(),
             openTime: Joi.string().required(),
             closeTime: Joi.string().required(),
-            services: Joi.any().required(),
+            services: Joi.array().min(1).required(),
             studio_images: fileSchema.required()
         });
 
