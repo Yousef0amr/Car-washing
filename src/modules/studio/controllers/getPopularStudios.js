@@ -5,16 +5,52 @@ const Service = require('./../../service/service.model')
 
 const getPopularStudios = wrap(
     async (req, res, next) => {
-        const serviceId = req.params.serviceId;
-        const limit = req.query.limit || 10
-        const isExist = Service.findById(serviceId);
-        if (!isExist) {
-            return next(new ApiError("service not found", 404));
-        }
-        const popularStudios = await Studio.find({
-            services: serviceId,
-            ratingsAvg: { $gte: 4.0 }
-        }).sort({ ratingsAvg: -1 }).limit(limit);
+
+
+        const popularStudios = await Studio.aggregate([
+            {
+                $unwind: '$services'
+            },
+            {
+                $group: {
+                    _id: '$services',
+                    count: { $sum: 1 },
+                    studios: {
+                        $push: {
+                            studioId: '$_id',
+                            studioName: '$name',
+                            location: '$location',
+                            description: '$description',
+                            logo: '$logo',
+                            rating: '$ratingsAvg',
+                            openTime: "$openTime",
+                            closeTime: "$closeTime",
+                            studio_images: "$studio_images"
+                        }
+                    }
+                }
+            },
+            {
+                $sort: { count: -1 }
+            },
+            {
+                $lookup: {
+                    from: 'services',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'serviceDetails'
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    serviceId: '$_id',
+                    serviceName: { $arrayElemAt: ['$serviceDetails.type', 0] },
+                    count: 1,
+                    studios: 1
+                }
+            }
+        ]);
         return Success(res, "Ok", { popularStudios })
     }
 )

@@ -51,15 +51,13 @@ studioRouter.route('/current-studio')
     // .patch( updateStudio)
     .get(getStudio)
 
-studioRouter.route('/popular-studios/:id')
+studioRouter.route('/popular-studios')
     .get(getPopularStudios)
 
 
-
-
-studioRouter.route('/:id')
-    .get(getStudio)
-// .delete(deleteStudio)
+// studioRouter.route('/:id')
+//     .get(getStudio)
+// // .delete(deleteStudio)
 
 
 module.exports = studioRouter;

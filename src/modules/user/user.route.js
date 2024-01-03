@@ -16,7 +16,9 @@ const restPasswordSchema = require('../../common/validationsModel/restPassword')
 const getUser = require('./controllers/get_user');
 const userRouter = express.Router({ mergeParams: true });
 const addToFavorites = require('./controllers/favorites/add_to_favorites')
-const removeFromFavorites = require('./controllers/favorites/remove_from_favorites')
+const removeFromFavorites = require('./controllers/favorites/remove_from_favorites');
+const validateParamsId = require('../../middlewares/validateParamsId');
+const getFavorites = require('./controllers/favorites/get_favorites');
 
 
 
@@ -48,20 +50,21 @@ userRouter.route('/resend-code')
 
 
 
-userRouter.route('/')
-// .get(getAllUsers)
+// userRouter.route('/')
+// // .get(getAllUsers)
 
 userRouter.route('/current-user')
     // .patch( updateUser)
-    .get(getUser)
+    .get(getUser);
 
-userRouter.route('/:id')
-    .get(getUser)
-// .delete(deleteUser)
+// userRouter.route('/get-user/:id')
+//     .get(validateParamsId(), getUser);
+// // // .delete(deleteUser)
 
 userRouter.route('/favorites')
-    .post(addToFavorites)
-    .delete(removeFromFavorites)
+    .get(getFavorites)
+    .post(validateParamsId(), addToFavorites)
+    .delete(validateParamsId(), removeFromFavorites);
 
 
 module.exports = userRouter;

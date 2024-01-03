@@ -7,7 +7,7 @@ const CryptoJS = require("crypto-js");
 const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const checkEmailDB = require('../../../../common/DB_operation/checkEmailDB')
-
+const transformLocation = require('./../../../../utils/tranformLocation')
 const register = wrap(
     async (req, res, next) => {
         const value = { ...req.body }
@@ -42,7 +42,7 @@ const register = wrap(
         value.car_images = images
         value.password = await hashPassword(value.password)
         value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()
-
+        value.location = transformLocation(value.location)
         const user = new User({
             ...value
         });

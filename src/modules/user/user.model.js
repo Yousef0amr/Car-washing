@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     location: {
-        type: String,
-        required: true
+        type: { type: String, default: 'Point' },
+        coordinates: [Number],
     },
     vehicleType: {
         type: String,
@@ -59,6 +59,12 @@ const userSchema = new mongoose.Schema({
         {
             type: mongoose.Types.ObjectId,
             ref: "Studio"
+        }
+    ],
+    orders: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Order"
         }
     ],
     role: {

@@ -27,8 +27,8 @@ const studioSchema = new mongoose.Schema({
         required: true
     },
     location: {
-        type: String,
-        required: true
+        type: { type: String, default: 'Point' },
+        coordinates: [Number],
     },
     description: {
         type: String,
@@ -47,6 +47,12 @@ const studioSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Service"
     }],
+    orders: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Order"
+        }
+    ],
     studio_images: [
         {
             type: String,

@@ -3,6 +3,7 @@ const { Success, ApiError } = require('./../../../../utils/apiResponse')
 const Studio = require('./../../studio.model')
 const hashPassword = require("./../../../../utils/hashPassword")
 const generateToken = require('./../../../../utils/generateToken')
+const transformLocation = require('./../../../../utils/tranformLocation')
 const CryptoJS = require("crypto-js");
 const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
@@ -43,6 +44,7 @@ const register = wrap(
         value.password = await hashPassword(value.password)
         value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()
 
+        value.location = transformLocation(value.location)
         const studio = new Studio({
             ...value
         });
@@ -54,5 +56,7 @@ const register = wrap(
         return Success(res, "OK", { token }, 201);
     }
 )
+
+
 
 module.exports = register

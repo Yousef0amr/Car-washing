@@ -8,7 +8,8 @@ const getUser = wrap(
     async (req, res, next) => {
         const id = req.userId || req.params.id
         const user = await User.findById(id, { ...userFilter })
-        Success(res, "Ok", { user })
+
+        return Success(res, "Ok", { user })
     }
 )
 

@@ -1,10 +1,8 @@
 const Joi = require("joi");
-const handleFieldErrors = require('./../utils/handleFileErrors')
 const { Validation } = require('./../utils/apiResponse')
 
 const validateQueryLn = () => {
     return (req, res, next) => {
-
         const ln_schema = Joi.object().required().keys({
             ln: Joi.string().valid('en', 'ar').required()
         });
