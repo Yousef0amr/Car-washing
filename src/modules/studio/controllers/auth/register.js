@@ -8,6 +8,7 @@ const CryptoJS = require("crypto-js");
 const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const checkEmailDB = require('../../../../common/DB_operation/checkEmailDB')
+const validateQueryLn = require('../../../../middlewares/validateQueryLn')
 
 const register = wrap(
     async (req, res, next) => {
@@ -45,6 +46,7 @@ const register = wrap(
         value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()
 
         value.location = transformLocation(value.location)
+
         const studio = new Studio({
             ...value
         });
