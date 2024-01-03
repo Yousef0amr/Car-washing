@@ -6,7 +6,7 @@ const fileSchema = require('./../../../common/validationsModel/file-schema')
 const validatorRegister = () => {
     return (req, res, next) => {
         const data = { ...req.body, ...req.files }
-
+        console.log(data)
         const schema = Joi.object({
             logo: fileSchema.max(1).required(),
             name: Joi.string().min(3).required(),
