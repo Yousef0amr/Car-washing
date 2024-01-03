@@ -4,7 +4,7 @@ const { Success } = require('../../../../utils/apiResponse');
 
 const getFavorites = wrap(
     async (req, res, next) => {
-        const user = await User.findById(req.userId)
+        const user = await User.findById(req.userId).populate('favorites')
         return Success(res, "OK", { favorites: user.favorites })
     }
 )
