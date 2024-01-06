@@ -63,6 +63,8 @@ userRouter.route('/current-user')
 
 userRouter.route('/favorites')
     .get(getFavorites)
+
+userRouter.route('/favorites/:id')
     .post(validateParamsId(), addToFavorites)
     .delete(validateParamsId(), removeFromFavorites);
 

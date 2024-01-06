@@ -8,10 +8,10 @@ const validateParamsId = () => {
         const id_schema = Joi.object().required().keys({
             id: objectId(Joi.required())
         });
-        const { error, value } = id_schema.validate(req.params || req.query, { abortEarly: false });
+        const { error, value } = id_schema.validate(req.params, { abortEarly: false });
 
         if (error) {
-            Validation(res, "Id are required");
+            return Validation(res, "Id are required");
         }
 
         next();

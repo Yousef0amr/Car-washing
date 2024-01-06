@@ -9,7 +9,7 @@ const validateQueryLn = () => {
         const { error, value } = ln_schema.validate(req.query, { abortEarly: false });
 
         if (error) {
-            Validation(res, "ln are required");
+            return Validation(res, "ln are required");
         }
         req.ln = value.ln
         next();

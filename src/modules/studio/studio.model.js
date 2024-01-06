@@ -82,16 +82,12 @@ const studioSchema = new mongoose.Schema({
 }, setting
 );
 
-studioSchema.pre('find', function (next) {
-    this.populate('services');
+studioSchema.pre(['find', 'findOne'], function (next) {
+    this.populate('services', { createdAt: false });
     next();
 });
 
 
-studioSchema.pre('findOne', function (next) {
-    this.populate('services');
-    next();
-});
 
 
 // studioSchema.post('find', (data, next) => {

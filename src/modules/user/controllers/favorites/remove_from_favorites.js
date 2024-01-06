@@ -4,7 +4,7 @@ const Studio = require('./../../../studio/studio.model')
 const { ApiError, Success } = require('./../../../../utils/apiResponse')
 const removeFromFavorites = wrap(
     async (req, res, next) => {
-        const id = req.query.id;
+        const id = req.params.id;
         const studio = await Studio.findById(id);
         if (!studio) {
             return next(new ApiError("Studio not founded", 404))
