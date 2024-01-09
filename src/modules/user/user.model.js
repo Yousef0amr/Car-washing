@@ -84,18 +84,18 @@ const userSchema = new mongoose.Schema({
 
 
 
-// userSchema.post('find', (data, next) => {
-//     data.map(user => {
-//         user.phone = CryptoJS.AES.decrypt(user.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-//     })
-//     next()
-// })
-// userSchema.post('findOne', (data, next) => {
-//     if (data) {
-//         data.phone = CryptoJS.AES.decrypt(data.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-//     }
-//     next()
-// })
+userSchema.post('find', (data, next) => {
+    data.map(user => {
+        user.phone = CryptoJS.AES.decrypt(user.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
+    })
+    next()
+})
+userSchema.post('findOne', (data, next) => {
+    if (data) {
+        data.phone = CryptoJS.AES.decrypt(data.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
+    }
+    next()
+})
 
 module.exports = mongoose.model('User', userSchema);
 
