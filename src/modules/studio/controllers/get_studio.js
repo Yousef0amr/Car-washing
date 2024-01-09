@@ -7,7 +7,7 @@ const { Success } = require('../../../utils/apiResponse')
 
 const getStudio = wrap(
     async (req, res, next) => {
-        const id = req.userId | req.params.id
+        const id = req.userId || req.params.id
         const studio = await Studio.findById(id, { ...studioFilter })
         Success(res, "OK", { studio })
     }
