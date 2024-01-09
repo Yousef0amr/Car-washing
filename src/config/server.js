@@ -25,7 +25,7 @@ app.all("*", (req, res, next) => next(new ApiError(`Can't find this route: ${req
 //handle errors
 app.use(globelError)
 //run server
-const server = app.listen(PORT, '192.168.0.103', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Connected To Port ${PORT}`)
 })
 //handle unhandledRejection outside express
