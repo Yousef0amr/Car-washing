@@ -19,10 +19,12 @@ const en = [
     { fieldName: 'carPlate', errorMessage: 'Car plate is required' },
     { fieldName: 'vehicleType', errorMessage: 'Vehicle type is required' },
     { fieldName: 'brand', errorMessage: 'Brand is required' },
+    { fieldName: 'brands', errorMessage: 'Brands is required' },
     { fieldName: 'model', errorMessage: 'Model is required' },
     { fieldName: 'type', errorMessage: 'Type is required' },
     { fieldName: 'brandName', errorMessage: 'BrandName is required' },
     { fieldName: 'modelName', errorMessage: 'ModelName is required' },
+    { fieldName: 'models', errorMessage: 'Models is required' },
 ];
 
 const ar = [

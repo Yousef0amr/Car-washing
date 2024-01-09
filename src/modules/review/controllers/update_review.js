@@ -1,20 +1,20 @@
 const wrap = require('express-async-wrapper')
 const Review = require('./../review.model')
 
-const { Success, Error } = require('../../../utils/apiResponse')
+const { Success, ApiError } = require('../../../utils/apiResponse')
 
 
 const updateReview = wrap(
     async (req, res, next) => {
-        const reviewId = req.query.studioId
+        const reviewId = req.params.id
         const value = { ...req.body }
         const review = await Review.findByIdAndUpdate(reviewId, { ...value })
         if (!review) {
-            Error(res, "studio not reviewed")
+            return next(new ApiError("studio not reviewed", 400))
         }
         review.save()
 
-        Success(res, "updated review successfully", null)
+        return Success(res, "updated review successfully", null)
     }
 )
 

@@ -40,13 +40,20 @@ const studioSchema = new mongoose.Schema({
         required: true,
     },
     closeTime: {
-        type: String,
-        required: true,
+
     },
-    services: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Service"
-    }],
+    services: [
+        new mongoose.Schema({
+            price: {
+                type: String,
+                required: true,
+            },
+            service: {
+                type: mongoose.Types.ObjectId,
+                ref: "Service"
+            }
+        }, { _id: false })
+    ],
     orders: [
         {
             type: mongoose.Types.ObjectId,
@@ -82,8 +89,9 @@ const studioSchema = new mongoose.Schema({
 }, setting
 );
 
+
 studioSchema.pre(['find', 'findOne'], function (next) {
-    this.populate('services', { createdAt: false });
+    this.populate('services.service', { createdAt: false });
     next();
 });
 

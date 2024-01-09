@@ -15,6 +15,7 @@ app.use(cors())
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('combined'))
 }
+
 app.use(authJwt)
 app.use(express.json());
 app.use(helmet())
@@ -24,7 +25,7 @@ app.all("*", (req, res, next) => next(new ApiError(`Can't find this route: ${req
 //handle errors
 app.use(globelError)
 //run server
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '192.168.0.103', () => {
     console.log(`Connected To Port ${PORT}`)
 })
 //handle unhandledRejection outside express

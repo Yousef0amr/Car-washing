@@ -4,7 +4,7 @@ const { Success } = require('./../../../../utils/apiResponse')
 
 const deleteCar = wrap(
     async (req, res, next) => {
-        const id = req.query.id
+        const id = req.params.id
 
         await Car.findByIdAndDelete(id)
 

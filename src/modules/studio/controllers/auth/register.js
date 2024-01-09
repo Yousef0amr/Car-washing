@@ -8,7 +8,7 @@ const CryptoJS = require("crypto-js");
 const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const checkEmailDB = require('../../../../common/DB_operation/checkEmailDB')
-const validateQueryLn = require('../../../../middlewares/validateQueryLn')
+
 
 const register = wrap(
     async (req, res, next) => {

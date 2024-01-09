@@ -6,7 +6,7 @@ const updateReview = require('./controllers/update_review');
 const reviewRouter = express.Router();
 
 
-reviewRouter.route('/')
+reviewRouter.route('/:id')
     .post(addReview)
     .delete(deleteReview)
     .patch(updateReview)

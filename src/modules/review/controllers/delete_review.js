@@ -2,20 +2,20 @@
 const wrap = require('express-async-wrapper')
 const Review = require('./../review.model')
 
-const { Success, Error } = require('../../../utils/apiResponse')
+const { Success, ApiError } = require('../../../utils/apiResponse')
 
 
 const deleteReview = wrap(
     async (req, res, next) => {
-        const reviewId = req.query.studioId
+        const reviewId = req.params.id
 
         const review = await Review.findByIdAndDelete(reviewId)
         if (!review) {
-            Error(res, "studio not reviewed")
+            return next(new ApiError("studio not reviewed", 400))
         }
         review.remove()
 
-        Success(res, "deleted review successfully", null)
+        return Success(res, "deleted review successfully", null)
     }
 )
 

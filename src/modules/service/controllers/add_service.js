@@ -3,6 +3,7 @@ const Service = require('../service.model')
 const { Success } = require('../../../utils/apiResponse')
 const create = require('../../../common/DB_operation/CRUD/create')
 const cloudinary = require('./../../../config/cloudinary')
+const { v4: uuidv4 } = require('uuid');
 const addService = wrap(
     async (req, res, next) => {
         const value = { ...req.body }

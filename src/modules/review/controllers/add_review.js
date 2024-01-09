@@ -1,22 +1,22 @@
 const wrap = require('express-async-wrapper')
 const create = require('./../../../common/DB_operation/CRUD/create')
 const Review = require('./../review.model')
-const { Success, Error } = require('../../../utils/apiResponse')
+const { Success, ApiError } = require('../../../utils/apiResponse')
 const addReview = wrap(
     async (req, res, next) => {
         const value = { ...req.body }
-        const studioId = req.query.studioId
+        const studioId = req.params.id
         const userId = req.userId
 
-        const isReviewed = await Review.findOne({ studio: studioId, user: userId })
+        const isReviewed = await Review.findOne({ studio: id, user: userId })
         if (isReviewed) {
-            Error(res, "studio already reviewed")
+            return next(new ApiError("studio already reviewed", 400))
         }
         value.studio = studioId;
         value.user = userId
         const review = await create(Review, value)
 
-        Success(res, "added review successfully", { review })
+        return Success(res, "added review successfully", { review })
     }
 )
 
