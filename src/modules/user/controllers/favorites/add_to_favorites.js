@@ -14,7 +14,7 @@ const addToFavorites = wrap(
             { _id: req.userId, 'favorites': { $nin: id } },
             { $addToSet: { favorites: id } },
             { new: true }
-        );
+        ).populate('favorites');
         if (!user) {
             return next(new ApiError("Studio already in favorites", 400))
         }

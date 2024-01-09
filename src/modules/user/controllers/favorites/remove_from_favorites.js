@@ -13,11 +13,11 @@ const removeFromFavorites = wrap(
             req.userId,
             { $pull: { favorites: id } },
             { new: true }
-        );
+        ).populate('favorites');;
         if (!user) {
             return next(new ApiError("Studio not found in favorites", 404))
         }
-        return Success(res, "Removed from favorites successfully", null)
+        return Success(res, "Removed from favorites successfully", { favorites: user.favorites })
     }
 )
 
