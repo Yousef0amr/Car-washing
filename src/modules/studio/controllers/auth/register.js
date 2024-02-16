@@ -4,7 +4,7 @@ const Studio = require('./../../studio.model')
 const hashPassword = require("./../../../../utils/hashPassword")
 const generateToken = require('./../../../../utils/generateToken')
 const transformLocation = require('./../../../../utils/tranformLocation')
-const CryptoJS = require("crypto-js");
+
 const cloudinary = require('./../../../../config/cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const checkEmailDB = require('../../../../common/DB_operation/checkEmailDB')
@@ -43,7 +43,6 @@ const register = wrap(
         value.logo = `${logo.public_id}`
         value.studio_images = images
         value.password = await hashPassword(value.password)
-        value.phone = CryptoJS.AES.encrypt(value.phone, process.env.ENCRYPTION_PHONE_KEY).toString()
 
         value.location = transformLocation(value.location)
 

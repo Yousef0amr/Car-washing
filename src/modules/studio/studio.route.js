@@ -38,7 +38,7 @@ studioRouter.route('/verify-email')
 studioRouter.route('/forget-password')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), forgetPassword);
 
-studioRouter.route('/rest-password')
+studioRouter.route('/reset-password')
     .post(multerConfig().array(), validateRequest(restPasswordSchema), restPassword);
 
 studioRouter.route('/resend-code')

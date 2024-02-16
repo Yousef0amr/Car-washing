@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const CryptoJS = require("crypto-js");
+
 const setting = require('./../../config/schemaConfig')
 const userSchema = new mongoose.Schema({
     logo: {
@@ -81,21 +81,6 @@ const userSchema = new mongoose.Schema({
     }
 }, setting);
 
-
-
-
-userSchema.post('find', (data, next) => {
-    data.map(user => {
-        user.phone = CryptoJS.AES.decrypt(user.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-    })
-    next()
-})
-userSchema.post('findOne', (data, next) => {
-    if (data) {
-        data.phone = CryptoJS.AES.decrypt(data.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-    }
-    next()
-})
 
 module.exports = mongoose.model('User', userSchema);
 

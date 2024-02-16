@@ -41,7 +41,7 @@ userRouter.route('/verify-email')
 userRouter.route('/forget-password')
     .post(multerConfig().array(), validateRequest(checkEmailSchema), forgetPassword);
 
-userRouter.route('/rest-password')
+userRouter.route('/reset-password')
     .post(multerConfig().array(), validateRequest(restPasswordSchema), restPassword);
 
 userRouter.route('/resend-code')

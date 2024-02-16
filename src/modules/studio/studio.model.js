@@ -40,7 +40,8 @@ const studioSchema = new mongoose.Schema({
         required: true,
     },
     closeTime: {
-
+        type: String,
+        required: true,
     },
     services: [
         new mongoose.Schema({
@@ -96,20 +97,6 @@ studioSchema.pre(['find', 'findOne'], function (next) {
 });
 
 
-
-
-studioSchema.post('find', (data, next) => {
-    data.map(user => {
-        user.phone = CryptoJS.AES.decrypt(user.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-    })
-    next()
-})
-studioSchema.post('findOne', (data, next) => {
-    if (data) {
-        data.phone = CryptoJS.AES.decrypt(data.phone, process.env.ENCRYPTION_PHONE_KEY).toString(CryptoJS.enc.Utf8)
-    }
-    next()
-})
 
 module.exports = mongoose.model('Studio', studioSchema);
 
